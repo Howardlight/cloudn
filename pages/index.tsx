@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import useSWR, { SWRResponse } from 'swr'
 import { useEffect, useState } from 'react'
-import { List, WeatherResponse } from '../types'
+import { WeatherList, WeatherResponse } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress } from '@mui/material'
 
 
@@ -20,7 +20,7 @@ function convertToCelsius(kelvin: number) {
 
 interface ListDay {
     day: number;
-    list: List[];
+    list: WeatherList[];
 }
 
 /**
@@ -55,7 +55,7 @@ function checkIfInListDay(cur: number, listDay: Array<ListDay>, exists: boolean,
  * @param weatherList 
  * @returns listDay: listDay
  */
-const filterWeatherListByDay = (weatherList: List[]) => {
+const filterWeatherListByDay = (weatherList: WeatherList[]) => {
 
     let listDay: Array<ListDay> = []; 
     let prevDay: number = -1;
@@ -99,7 +99,7 @@ const filterWeatherListByDay = (weatherList: List[]) => {
 
 
 
-const weatherComponent = (dataEntry: List, index: number) => {
+const weatherComponent = (dataEntry: WeatherList, index: number) => {
     return (
     <Container key={index}>
         <Typography>{convertToCelsius(dataEntry.main.temp)}° - {dataEntry.dt_txt.toString()}</Typography>
