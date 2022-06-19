@@ -55,14 +55,14 @@ function checkIfInListDay(cur: number, listDay: Array<ListDay>, exists: boolean,
  * @param weatherList 
  * @returns listDay: listDay
  */
-const filterWeatherListByDay = (weatherList: WeatherList[]) => {
+const filterWeatherListByDay = (weatherList: WeatherList[]): Array<ListDay> => {
 
     let listDay: Array<ListDay> = []; 
     let prevDay: number = -1;
 
     // Loop over all entries in List
     for(let i = 0; i < weatherList.length; i++) {
-        console.log(`i: ${i} - weatherList Date: ${weatherList[i].dt_txt}`);
+        // console.log(`i: ${i} - weatherList Date: ${weatherList[i].dt_txt}`);
 
         // detect different days and contain them in their own Json entry
         var curDate = new Date(weatherList[i].dt_txt);
@@ -84,7 +84,7 @@ const filterWeatherListByDay = (weatherList: WeatherList[]) => {
         // If there is an entry already, push it to that entry
         if(exists) {
             listDay[listDayIndex].list.push(weatherList[i]);
-            console.log(`Added ${weatherList[i].dt_txt} to ${listDay[listDayIndex]} of day: ${curDay}`);
+            // console.log(`Added ${weatherList[i].dt_txt} to ${listDay[listDayIndex]} of day: ${curDay}`);
         } else {
             // If there is no entry, we will create one
             listDay.push({day: curDay, list: [weatherList[i]]});
@@ -93,7 +93,7 @@ const filterWeatherListByDay = (weatherList: WeatherList[]) => {
         prevDay = curDay;
     }
 
-    console.log(listDay);
+    // console.log(listDay);
     return listDay;
 }
 
