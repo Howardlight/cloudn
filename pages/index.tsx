@@ -18,7 +18,7 @@ function convertToCelsius(kelvin: number) {
     return Math.round(kelvinToCelsius(kelvin));
 }
 
-interface ListDay {
+interface DayForcast {
     day: number;
     list: WeatherList[];
 }
@@ -33,7 +33,7 @@ interface ListDay {
  * @param listDayIndex : number
  * @returns `[exists, listDayIndex]`
  */
-function checkIfInListDay(cur: number, listDay: Array<ListDay>, exists: boolean, listDayIndex: number) {
+function checkIfInForcastList(cur: number, listDay: Array<DayForcast>, exists: boolean, listDayIndex: number) {
 
     for(let j = 0; j < listDay.length ; j++) {
 
@@ -55,9 +55,9 @@ function checkIfInListDay(cur: number, listDay: Array<ListDay>, exists: boolean,
  * @param weatherList 
  * @returns listDay: listDay
  */
-const filterWeatherListByDay = (weatherList: WeatherList[]): Array<ListDay> => {
+const filterWeatherListByDay = (weatherList: WeatherList[]): Array<DayForcast> => {
 
-    let listDay: Array<ListDay> = []; 
+    let forcastList: Array<DayForcast> = []; 
     let prevDay: number = -1;
 
     // Loop over all entries in List
@@ -78,40 +78,31 @@ const filterWeatherListByDay = (weatherList: WeatherList[]): Array<ListDay> => {
         };
 
         // Check if an entry of same sade has already been added to listDay
-        [exists, listDayIndex] = checkIfInListDay(curDay, listDay, exists, listDayIndex);
+        [exists, listDayIndex] = checkIfInForcastList(curDay, forcastList, exists, listDayIndex);
 
 
         // If there is an entry already, push it to that entry
         if(exists) {
-            listDay[listDayIndex].list.push(weatherList[i]);
+            forcastList[listDayIndex].list.push(weatherList[i]);
             // console.log(`Added ${weatherList[i].dt_txt} to ${listDay[listDayIndex]} of day: ${curDay}`);
         } else {
             // If there is no entry, we will create one
-            listDay.push({day: curDay, list: [weatherList[i]]});
+            forcastList.push({day: curDay, list: [weatherList[i]]});
         }
 
         prevDay = curDay;
     }
 
     // console.log(listDay);
-    return listDay;
+    return forcastList;
 }
 
-
-
-const weatherComponent = (dataEntry: WeatherList, index: number) => {
-    return (
-    <Container key={index}>
-        <Typography>{convertToCelsius(dataEntry.main.temp)}° - {dataEntry.dt_txt.toString()}</Typography>
-    </Container>
-    )
-}
 
 const Home: NextPage = () => {
 
     const [longitude, setLongitude] = useState(0);
     const [latitude, setLatitude] = useState(0);
-    const [weatherList, setWeatherList] = useState<ListDay[] | undefined>(undefined);
+    const [weatherList, setWeatherList] = useState<DayForcast[] | undefined>(undefined);
 
 
     useEffect(() => {
