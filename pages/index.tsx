@@ -111,6 +111,8 @@ const Home: NextPage = () => {
 
     const [longitude, setLongitude] = useState(0);
     const [latitude, setLatitude] = useState(0);
+    const [weatherList, setWeatherList] = useState<ListDay[] | undefined>(undefined);
+
 
     useEffect(() => {
         const getGeoLocation = async () => {
@@ -145,7 +147,8 @@ const Home: NextPage = () => {
     // Filters weather Data by Day to be displayed under
     if (data) {
         setTimeout(() => {
-            filterWeatherListByDay(data?.list);
+            const list = filterWeatherListByDay(data?.list);
+            setWeatherList(list);
         }, 2000);
     }
 
@@ -163,10 +166,11 @@ const Home: NextPage = () => {
             </Box>
 
             <Box>
-                <Typography>{data.list.length}</Typography>
-                {data.list.map((item, index) => {
-                    if(index == 0) return null;
-                    return weatherComponent(item, index);
+                {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
+                    //TODO: Filter out the first day if it is the same day as the one displayed in the middle
+                    //TODO: Create a function that displays the mean of  each individual list
+                    //TODO: Create a nice Component to display info
+                    return <Typography key={item.day}>{item.day}</Typography>;
                 })}
             </Box>
         </Box>
