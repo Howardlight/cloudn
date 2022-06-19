@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import useSWR, { SWRResponse } from 'swr'
 import { useEffect, useState } from 'react'
-import { WeatherList, WeatherResponse } from '../types'
+import { WeatherList, WeatherResponse, DayForcast } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress } from '@mui/material'
 
 
@@ -16,11 +16,6 @@ function kelvinToCelsius(kelvin: number) {
 
 function convertToCelsius(kelvin: number) {
     return Math.round(kelvinToCelsius(kelvin));
-}
-
-interface DayForcast {
-    day: number;
-    list: WeatherList[];
 }
 
 /**

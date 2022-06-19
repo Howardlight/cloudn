@@ -87,3 +87,8 @@ export interface Wind {
     deg:   number;
     gust:  number;
 }
+
+export interface DayForcast {
+    day: number;
+    list: WeatherList[];
+}
