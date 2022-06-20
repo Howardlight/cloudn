@@ -32,6 +32,109 @@ function checkIfInForcastList(cur: number, listDay: Array<DayForcast>, exists: b
 
     return [exists, listDayIndex] as const;
 }
+
+/**
+ *  Takes DayForcast and calculates the average.
+ *  Adds all Weather types together
+ * @param df 
+ * @returns `DayForcast average`
+ */
+const calDayForcastAv = (df: DayForcast): DayForcastAv => {
+
+    const len = df.list.length;
+
+    let temp: number = 0;
+    let feels_like: number = 0;
+    let temp_min: number = 0;
+    let temp_max: number = 0;
+    let pressure: number = 0;
+    let sea_level: number = 0;
+    let grnd_level: number = 0;
+    let humidity: number = 0;
+    let temp_kf: number = 0;
+
+
+    let weather: Weather[] = [];
+    let clouds: Clouds = {all: 0};
+    let wind: Wind = {speed: 0, deg: 0, gust: 0};
+    let visibility: number = 0;
+    let pop: number = 0;
+
+    //Loop over All list items
+    for(let i = 0; i < df.list.length; i++) {
+        
+        // get The sum of all of main's values
+        temp += df.list[i].main.temp;
+        feels_like += df.list[i].main.feels_like;
+        temp_min += df.list[i].main.temp_min;
+        temp_max += df.list[i].main.temp_max;
+        pressure += df.list[i].main.pressure;
+        sea_level += df.list[i].main.sea_level;
+        grnd_level += df.list[i].main.grnd_level;
+        humidity += df.list[i].main.humidity;
+        temp_kf += df.list[i].main.temp_kf;
+
+        clouds.all += df.list[i].clouds.all;
+        visibility += df.list[i].visibility;
+        pop += df.list[i].pop;
+
+        // Wind
+        wind.speed += df.list[i].wind.speed;
+        wind.deg += df.list[i].wind.deg;
+        wind.gust += df.list[i].wind.gust;
+
+
+
+        // if weather length is 0, skip it, else add all weather lists inside to weather
+        if(df.list[i].weather.length == 0) continue;
+        else for(let j = 0; j < df.list[i].weather.length; j++) {weather.push(df.list[i].weather[j])};
+
+    }
+
+    // Divide main's values by length of list, which gives us the mean
+    temp = temp / len;
+    feels_like = feels_like / len;
+    temp_min = temp_min / len;
+    temp_max = temp_max / len;
+    pressure = pressure / len;
+    sea_level = sea_level / len;
+    grnd_level = grnd_level / len;
+    humidity = humidity / len;
+    temp_kf = temp_kf / len;
+
+    clouds.all = clouds.all / len;
+    visibility = visibility / len;
+    pop = pop / len;
+
+    // Wind
+    wind.speed = wind.speed / len;
+    wind.deg = wind.deg / len;
+    wind.gust = wind.gust / len;
+
+
+    // create MainClass
+    const main = {
+        temp       : temp,
+        feels_like : feels_like,
+        temp_min   : temp_min,
+        temp_max   : temp_max, 
+        pressure   : pressure,
+        sea_level  : sea_level,
+        grnd_level : grnd_level,
+        humidity   : humidity,
+        temp_kf    : temp_kf,
+    }
+
+    return {
+        main: main,
+        clouds: clouds,
+        wind: wind,
+        pop: pop,
+        visibility: visibility,
+        weather: weather,
+    }
+}
+
 /**
  *  Filters Weather data by Day
  * @param weatherList
