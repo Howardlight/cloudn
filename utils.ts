@@ -171,10 +171,10 @@ export const filterWeatherListByDay = (weatherList: WeatherResponse): Array<DayF
     }
 
     // Loop over all entries in List
-    for (let i = 0; i < weatherList.length; i++) {
-        // console.log(`i: ${i} - weatherList Date: ${weatherList[i].dt_txt}`);
+    for (let i = 0; i < weatherList.list.length; i++) {
+
         // detect different days and contain them in their own Json entry
-        var curDate = new Date(weatherList[i].dt_txt);
+        var curDate = new Date(weatherList.list[i].dt_txt);
         var curDay = curDate.getDate();
 
 
@@ -192,11 +192,11 @@ export const filterWeatherListByDay = (weatherList: WeatherResponse): Array<DayF
 
         // If there is an entry already, push it to that entry
         if (exists) {
-            forcastList[listDayIndex].list.push(weatherList[i]);
+            forcastList[listDayIndex].list.push(weatherList.list[i]);
             // console.log(`Added ${weatherList[i].dt_txt} to ${listDay[listDayIndex]} of day: ${curDay}`);
         } else {
             // If there is no entry, we will create one
-            forcastList.push({ day: curDay, list: [weatherList[i]] });
+            forcastList.push({ day: curDay, list: [weatherList.list[i]], average: placeholderAv });
         }
 
         prevDay = curDay;
