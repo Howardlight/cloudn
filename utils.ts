@@ -145,6 +145,31 @@ export const filterWeatherListByDay = (weatherList: WeatherList[]): Array<DayFor
     let forcastList: Array<DayForcast> = [];
     let prevDay: number = -1;
 
+    let placeholderAv = {
+        main: {
+            temp : 0,
+            feels_like : 0,
+            temp_min : 0,
+            temp_max : 0,
+            pressure : 0,
+            sea_level : 0,
+            grnd_level : 0,
+            humidity : 0,
+            temp_kf : 0,
+        },
+        clouds: {
+            all: 0
+        },
+        wind: {
+            speed: 0,
+            deg: 0,
+            gust: 0
+        },
+        pop: 0,
+        visibility: 0,
+        weather: [],
+    }
+
     // Loop over all entries in List
     for (let i = 0; i < weatherList.length; i++) {
         // console.log(`i: ${i} - weatherList Date: ${weatherList[i].dt_txt}`);
