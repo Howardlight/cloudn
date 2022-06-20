@@ -5,9 +5,9 @@ import styles from '../styles/Home.module.css'
 import useSWR, { SWRResponse } from 'swr'
 import { useEffect, useState } from 'react'
 import { WeatherResponse, DayForcast } from '../types'
-import { Container, LinearProgress, Typography, Box, CircularProgress } from '@mui/material'
+import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia } from '@mui/material'
 import { fetcher, filterWeatherListByDay, filterFirstForcast } from '../utils'
-
+import { Fragment } from 'react'
 
 const Home: NextPage = () => {
 
@@ -78,14 +78,30 @@ const Home: NextPage = () => {
                 <Typography>{data.city.name}</Typography>
             </Box>
 
-            <Box>
+            <Box sx={{display: "flex", justifyContent: "center", flexDirection: "row"}}>
                 {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
                     //TODO: Create a function that displays the mean of  each individual list
                     //TODO: Create a nice Component to display info
-                    return <Typography key={item.day}>{item.day}</Typography>;
+                    return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
                 })}
             </Box>
         </Box>
+    );
+}
+
+
+const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
+
+    return(
+        <Card>
+            <CardMedia>
+                <Typography variant="h4" className="font-bold">{dayForcast.day}</Typography>
+                <Typography variant="subtitle1">Temp: {dayForcast.list[0].main.temp}</Typography>
+                <Typography variant="subtitle1">Max: {dayForcast.list[0].main.temp_max}</Typography>
+                <Typography variant="subtitle1">Feels Like: {dayForcast.list[0].main.feels_like}</Typography>
+            </CardMedia>
+
+        </Card>
     );
 }
 
