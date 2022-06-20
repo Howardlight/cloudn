@@ -1,4 +1,4 @@
-import { WeatherList, WeatherResponse, DayForcast } from './types';
+import { WeatherList, WeatherResponse, DayForcast, DayForcastAv, Weather, Wind, Clouds } from './types';
 
 export const fetcher = (url: string) => fetch(url).then(r => r.json());
 function kelvinToCelsius(kelvin: number) {
@@ -202,7 +202,14 @@ export const filterWeatherListByDay = (weatherList: WeatherResponse): Array<DayF
         prevDay = curDay;
     }
 
-    // console.log(listDay);
+    forcastList = filterFirstForcast(forcastList, weatherList);
+
+    for(let i = 0; i < forcastList.length; i++) {
+        forcastList[i].average = calDayForcastAv(forcastList[i]);
+        // console.log(forcastList[i].average);
+    }
+
+    // console.log(forcastList);
     return forcastList;
 };
 /**
