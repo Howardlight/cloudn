@@ -44,7 +44,6 @@ function checkIfInForcastList(cur: number, listDay: Array<DayForcast>, exists: b
     return [exists, listDayIndex] as const;
 }
 
-//TODO: Process list to split dataset by days
 /**
  *  Filters Weather data by Day
  * @param weatherList 
@@ -113,7 +112,7 @@ const Home: NextPage = () => {
     const [longitude, setLongitude] = useState(0);
     const [latitude, setLatitude] = useState(0);
     const [weatherList, setWeatherList] = useState<DayForcast[] | undefined>(undefined);
-
+    // console.log("Rendered Home");
 
     useEffect(() => {
         const getGeoLocation = async () => {
@@ -143,18 +142,26 @@ const Home: NextPage = () => {
         getGeoLocation().catch(console.error);
     }, []);
 
-    const {data, error}: SWRResponse<WeatherResponse, any> = useSWR(longitude !=0 && latitude !=0 ? `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OWA_API}` : null, fetcher);
+    const {data, error}: SWRResponse<WeatherResponse, any> = useSWR(longitude !=0 && latitude !=0 ? `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OWA_API}` : null, fetcher, {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
 
-    // Filters weather Data by Day to be displayed under
-    if (data) {
-        setTimeout(() => {
-            var list = filterWeatherListByDay(data?.list);
-            console.table(list);
-            list = filterFirstForcast(list, data)
-            setWeatherList(list);
-            console.table(list);
-        }, 2000);
-    }
+    useEffect(() => {
+        // Filters weather Data by Day to be displayed under
+        if(data) {
+            const timeOut = setTimeout(() => {
+                console.log("TimeOut Called!");
+                var list = filterWeatherListByDay(data.list);
+                list = filterFirstForcast(list, data)
+
+                setWeatherList(list);
+            }, 2000);
+        }
+
+    }, [data])
+
 
     if(error) return <div>{error}</div>
     if(!data) return <LinearProgress/>
@@ -171,7 +178,6 @@ const Home: NextPage = () => {
 
             <Box>
                 {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                    //TODO: Filter out the first day if it is the same day as the one displayed in the middle
                     //TODO: Create a function that displays the mean of  each individual list
                     //TODO: Create a nice Component to display info
                     return <Typography key={item.day}>{item.day}</Typography>;
