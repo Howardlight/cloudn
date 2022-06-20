@@ -4,7 +4,7 @@ export const fetcher = (url: string) => fetch(url).then(r => r.json());
 function kelvinToCelsius(kelvin: number) {
     return kelvin - 273.15;
 }
-function convertToCelsius(kelvin: number) {
+export function convertToCelsius(kelvin: number) {
     return Math.round(kelvinToCelsius(kelvin));
 }
 /**
