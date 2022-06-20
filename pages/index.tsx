@@ -92,6 +92,21 @@ const filterWeatherListByDay = (weatherList: WeatherList[]): Array<DayForcast> =
     return forcastList;
 }
 
+/**
+ * Removes Current Day Forcast from the List
+ * @param dayForcast 
+ * @param weatherData 
+ * @returns `dayForcast`
+ */
+function filterFirstForcast(dayForcast: DayForcast[], weatherData: WeatherResponse) {
+
+    if(dayForcast[0].list[0].dt_txt === weatherData.list[0].dt_txt) {
+        console.log(`Current Weather day detected in DayForcast[] of day ${dayForcast[0].day}`);
+        dayForcast.shift();
+    }
+
+    return dayForcast;
+}
 
 const Home: NextPage = () => {
 
@@ -133,8 +148,11 @@ const Home: NextPage = () => {
     // Filters weather Data by Day to be displayed under
     if (data) {
         setTimeout(() => {
-            const list = filterWeatherListByDay(data?.list);
+            var list = filterWeatherListByDay(data?.list);
+            console.table(list);
+            list = filterFirstForcast(list, data)
             setWeatherList(list);
+            console.table(list);
         }, 2000);
     }
 
