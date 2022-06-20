@@ -140,7 +140,7 @@ const calDayForcastAv = (df: DayForcast): DayForcastAv => {
  * @param weatherList
  * @returns listDay: listDay
  */
-export const filterWeatherListByDay = (weatherList: WeatherList[]): Array<DayForcast> => {
+export const filterWeatherListByDay = (weatherList: WeatherResponse): Array<DayForcast> => {
 
     let forcastList: Array<DayForcast> = [];
     let prevDay: number = -1;
