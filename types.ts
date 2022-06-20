@@ -91,4 +91,14 @@ export interface Wind {
 export interface DayForcast {
     day: number;
     list: WeatherList[];
+    average: DayForcastAv;
+}
+
+export interface DayForcastAv {
+    main:       MainClass;
+    weather:    Weather[];
+    clouds:     Clouds;
+    wind:       Wind;
+    visibility: number;
+    pop:        number;
 }
