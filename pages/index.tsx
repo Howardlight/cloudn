@@ -78,13 +78,19 @@ const Home: NextPage = () => {
                 <Typography>{data.city.name}</Typography>
             </Box>
 
-            <Box sx={{display: "flex", justifyContent: "center", flexDirection: "row"}}>
-                {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                    //TODO: Create a function that displays the mean of  each individual list
-                    //TODO: Create a nice Component to display info
-                    return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
-                })}
+                {/* //TODO: Add transition */}
+                <WeatherWidgetGroup weatherList={weatherList} />
+                {/* <Box>
+                    {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
+                        //TODO: Create a nice Component to display info
+                        return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
+                    })}
+                </Box> */}
             </Box>
+    );
+}
+
+
         </Box>
     );
 }
