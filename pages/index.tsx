@@ -5,9 +5,10 @@ import styles from '../styles/Home.module.css'
 import useSWR, { SWRResponse } from 'swr'
 import { useEffect, useState } from 'react'
 import { WeatherResponse, DayForcast } from '../types'
-import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia } from '@mui/material'
-import { fetcher, filterWeatherListByDay, filterFirstForcast } from '../utils'
+import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
+import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius } from '../utils'
 import { Fragment } from 'react'
+import clouds from "../assets/climate-cloud-forecast-2.svg";
 
 const Home: NextPage = () => {
 
@@ -55,8 +56,8 @@ const Home: NextPage = () => {
         if(data) {
             const timeOut = setTimeout(() => {
                 console.log("TimeOut Called!");
-                var list = filterWeatherListByDay(data.list);
-                list = filterFirstForcast(list, data)
+                var list = filterWeatherListByDay(data);
+                // list = filterFirstForcast(list, data)
 
                 setWeatherList(list);
             }, 2000);
@@ -68,15 +69,17 @@ const Home: NextPage = () => {
     if(error) return <div>{error}</div>
     if(!data) return <LinearProgress/>
     return (
-        <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", minWidth: "100vw", minHeight: "100vh"}}>
-            <Box sx={{display: "flex", flexDirection: "row"}}>
-                <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                <Typography className="text-3xl" sx={{alignSelf: "flex-end", mb: "5%"}}>{data ? "°C" : null}</Typography>
-            </Box>
-            <Typography className="text-6xl">{data.list[0].weather[0].main}</Typography>
-            <Box>
-                <Typography>{data.city.name}</Typography>
-            </Box>
+            <Box sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px"}}>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                    <Box sx={{display: "inline-flex", flexDirection: "row"}}>
+                        <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                        <Typography className="text-3xl" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
+                    </Box>
+                    <Box sx={{display: "inline-flex", flexDirection: "column", justifyContent: "center"}}>
+                        <Typography className="text-6xl">{data.list[0].weather[0].main}</Typography>
+                        <Typography sx={{alignSelf: "center"}}>{data.city.name}</Typography>
+                    </Box>
+                </Box>
 
                 {/* //TODO: Add transition */}
                 <WeatherWidgetGroup weatherList={weatherList} />
@@ -91,6 +94,15 @@ const Home: NextPage = () => {
 }
 
 
+const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined}) => {
+    
+    
+    return(
+        <Box sx={{display: "flex", gap: "5px"}}>
+            {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
+                        //TODO: Create a nice Component to display info
+                        return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
+            })}
         </Box>
     );
 }
@@ -101,11 +113,12 @@ const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
     return(
         <Card>
             <CardMedia>
-                <Typography variant="h4" className="font-bold">{dayForcast.day}</Typography>
-                <Typography variant="subtitle1">Temp: {dayForcast.list[0].main.temp}</Typography>
-                <Typography variant="subtitle1">Max: {dayForcast.list[0].main.temp_max}</Typography>
-                <Typography variant="subtitle1">Feels Like: {dayForcast.list[0].main.feels_like}</Typography>
+                <Image src={clouds}  />
             </CardMedia>
+            <CardContent sx={{minHeight: "100px", minWidth: "150px", p: "5%"}}>
+                <Typography variant="h5" className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
+                <Typography sx={{display: "flex", wrap: "no-wrap"}} variant="subtitle1">{convertToCelsius(dayForcast.average.main.feels_like)} | {convertToCelsius(dayForcast.average.main.temp_max)} °</Typography>
+            </CardContent>
 
         </Card>
     );
