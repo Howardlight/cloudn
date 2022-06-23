@@ -8,7 +8,7 @@ import { WeatherResponse, DayForcast } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
 import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius } from '../utils'
 import { Fragment } from 'react'
-import clouds from "../assets/climate-cloud-forecast-2.svg";
+import clouds from "../assets/ForcastSVGs/climate-cloud-forecast-2.svg";
 
 const Home: NextPage = () => {
 
