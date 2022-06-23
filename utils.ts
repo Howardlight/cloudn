@@ -227,3 +227,97 @@ export function filterFirstForcast(dayForcast: DayForcast[], weatherData: Weathe
 
     return dayForcast;
 }
+
+export const weatherIconMap = [
+    
+    // Few Clouds
+    {
+        code: "02d",
+        svg: "sunny-cloud-forcast.svg"
+    },
+    {
+        code: "02n",
+        svg: "sunny-cloud-forcast.svg"
+    },
+
+    // Clear
+    {
+        code: "01d",
+        svg: "forcast-sun-sunrise.svg"
+    },
+    {
+        code: "01n",
+        svg: "forcast-moon-night.svg"
+    },
+
+    // Lighting
+    {
+        code: "11d",
+        svg: "energy-forecast-lightning.svg"
+    },
+    {
+        code: "11n",
+        svg: "energy-forecast-lightning.svg"
+    },
+
+    // Cloudy
+    {
+        code: "03d",
+        svg: "cloud-cloudy-forcast.svg"
+    },
+    {
+        code: "03n",
+        svg: "cloud-cloudy-forcast.svg"
+    },
+
+    // Cloud Lightning
+    {
+        code: "11d",
+        svg: "cloud-forcast-lightning.svg"
+    },
+    {
+        code: "11n",
+        svg: "cloud-forcast-lightning.svg"
+    },
+    
+
+    // Cloudy Rain
+    {
+        code: "09d",
+        svg: "climate-forcast-rain.svg"
+    },
+    {
+        code: "09n",
+        svg: "climate-forcast-night.svg"
+    },
+
+    {
+        code: "10d",
+        svg: "climate-forcast-rain.svg"
+    },
+    {
+        code: "10n",
+        svg: "climate-forcast-night.svg"
+    },
+
+    // Snow
+    {
+        code: "13d",
+        svg: "forecast-snowflakes.svg"
+    },
+    {
+        code: "13n",
+        svg: "forecast-snowflakes.svg"
+    },
+
+
+    // Mist
+    {
+        code: "50d",
+        svg: "blowing-climate-forcast.svg"
+    },
+    {
+        code: "50n",
+        svg: "blowing-climate-forcast.svg"
+    },
+]
