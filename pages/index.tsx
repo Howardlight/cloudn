@@ -3,12 +3,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import useSWR, { SWRResponse } from 'swr'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { WeatherResponse, DayForcast } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
 import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius } from '../utils'
 import { Fragment } from 'react'
 import clouds from "../assets/ForcastSVGs/climate-cloud-forecast-2.svg";
+import bg from "../assets/bg.jpg";
 
 const Home: NextPage = () => {
 
