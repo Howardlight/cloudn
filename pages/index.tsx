@@ -69,30 +69,34 @@ const Home: NextPage = () => {
     if(!data) return <LinearProgress/>
     //TODO: Add Image Loader, Add Lazy Loading
     return (
-            <Box sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px"}}>
-                <Box>
-                    <Image src={clouds} width={250} height={250} />
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                        <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                            <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                            <Typography className="text-3xl" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
-                        </Box>
-                        <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-                            <Typography className="text-6xl">{data.list[0].weather[0].main}</Typography>
-                            <Typography sx={{ alignSelf: "center" }}>{data.city.name}</Typography>
+        <Fragment>
+            <Background>
+                <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
+                    <Box>
+                        <Image src={clouds} width={250} height={250} />
+                        <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
+                            <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
+                                <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                                <Typography className="text-3xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
+                            </Box>
+                            <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
+                                <Typography className="text-6xl">{data.list[0].weather[0].main}</Typography>
+                                <Typography sx={{ alignSelf: "center" }}>{data.city.name}</Typography>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
 
-                {/* //TODO: Add transition */}
-                <WeatherWidgetGroup weatherList={weatherList} />
-                {/* <Box>
-                    {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                        //TODO: Create a nice Component to display info
-                        return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
-                    })}
-                </Box> */}
-            </Box>
+                    {/* //TODO: Add transition */}
+                    <WeatherWidgetGroup weatherList={weatherList} />
+                    {/* <Box>
+                        {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
+                            //TODO: Create a nice Component to display info
+                            return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
+                        })}
+                    </Box> */}
+                </Box>
+            </Background>
+        </Fragment>
     );
 }
 
