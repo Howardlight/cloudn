@@ -74,7 +74,22 @@ export enum Description {
 export enum Icon {
     The01D = "01d",
     The01N = "01n",
+    The02D = "02d",
+    The02N = "02N",
     The03D = "03d",
+    The03N = "03n",
+    The04D = "04d",
+    The04N = "04n",
+    The09D = "09d",
+    The09N = "09n",
+    The10D = "10d",
+    The10N = "10n",
+    The11D = "11d",
+    The11N = "11n",
+    The13D = "13d",
+    The13N = "13n",
+    The50D = "50d",
+    The50N = "50n",
 }
 
 export enum MainEnum {
