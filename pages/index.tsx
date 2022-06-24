@@ -1,10 +1,10 @@
 import type {NextPage} from 'next'
 import Image from 'next/image'
-import React, {Fragment, useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState, Suspense} from 'react'
 import {DayForcast} from '../types'
 import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
 import {filterWeatherListByDay, getForcastIcon, useWeatherData} from '../utils'
-import {WeatherWidget} from "../components/weatherWidget";
+import {ErrorBoundary} from "react-error-boundary";
 
 const Home: NextPage = () => {
 
@@ -42,6 +42,8 @@ const Home: NextPage = () => {
 
     const {data, isLoading, isError} = useWeatherData(longitude, latitude);
 
+    const WeatherWidgetGroup = React.lazy(() => import("../components/weatherWidget"));
+
     useEffect(() => {
         // Filters weather Data by Day to be displayed under
         if(data) {
@@ -63,7 +65,7 @@ const Home: NextPage = () => {
         <Fragment>
                 <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
                     <Box>
-                        <Image src={getForcastIcon(data!.list[0])} width={250} height={250} />
+                        <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} width={250} height={250} />
                         <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
                             <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
                                 <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
@@ -76,24 +78,15 @@ const Home: NextPage = () => {
                         </Box>
                     </Box>
 
-                    {/* //TODO: Add transition */}
-                    <WeatherWidgetGroup weatherList={weatherList} />
+                    <ErrorBoundary fallback={<Typography>Could not load remaining Forecasts.</Typography>}>
+                            <Suspense fallback={<CircularProgress />}>
+                                {weatherList != undefined ? <WeatherWidgetGroup weatherList={weatherList} /> : <CircularProgress />}
+                            </Suspense>
+                    </ErrorBoundary>
                 </Box>
         </Fragment>
     );
 }
 
-const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined}) => {
-    
-    
-    return(
-        <Box sx={{display: "flex", gap: "7px"}}>
-            {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                        return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
-            })}
-        </Box>
-    );
-}
 
-
-export default Home
+export default Home;

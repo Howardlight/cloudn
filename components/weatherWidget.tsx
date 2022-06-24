@@ -1,16 +1,16 @@
 import {DayForcast} from "../types";
-import {Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {Box, Card, CardContent, CardMedia, Fade, Typography} from "@mui/material";
 import Image from "next/image";
 import {convertToCelsius, fetchDate, getForcastIcon} from "../utils";
-import React from "react";
+import React, {Fragment} from "react";
 
-export const WeatherWidget = ({dayForcast}: { dayForcast: DayForcast }) => {
+const WeatherWidget = ({dayForcast}: { dayForcast: DayForcast }) => {
 
     return (
         <Card className="bg-transparent rounded-md border-2 border-solid w-48 min-h-fit" sx={{color: "white"}}>
             <CardMedia
                 sx={{display: "inline-flex", flexDirection: "row", alignItems: "center", m: "10px", gap: "10px"}}>
-                <Image src={getForcastIcon(dayForcast)} width={50} height={50}/>
+                <Image src={getForcastIcon(dayForcast)} alt={"Forecast Icon"} width={50} height={50}/>
                 <Typography variant="h5"
                             className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
             </CardMedia>
@@ -25,3 +25,22 @@ export const WeatherWidget = ({dayForcast}: { dayForcast: DayForcast }) => {
         </Card>
     );
 }
+const WeatherWidgetGroup = ({weatherList}: { weatherList: DayForcast[] | undefined }) => {
+
+
+    return (
+        <Fade unmountOnExit in>
+            <Box sx={{display: "flex", gap: "7px"}}>
+                {weatherList!.map((item, index) => {
+                    return (
+                        <Fragment key={index}>
+                            <WeatherWidget dayForcast={item}/>
+                        </Fragment>
+                    )
+                })}
+            </Box>
+        </Fade>
+    );
+}
+
+export default WeatherWidgetGroup
