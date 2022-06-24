@@ -242,12 +242,16 @@ export function filterFirstForcast(dayForcast: DayForcast[], weatherData: Weathe
 
 
 /**
- * Takes Forcast|WeatherList and returns url of Associated Icon 
+ * Takes Forcast|WeatherList and returns url of Associated Icon.
  * 
+ * 
+ * Returns Icon for FIRST FORCAST
  * @param forcast
  * @returns `string url`
  */
 export function getForcastIcon(forcast: DayForcast | WeatherList): string {
+    //TODO: Add the option to select which weather, day
+    // since all the icons of first days are at 0-ish am, all of them are the same icon
     let iconCode: string;
     if("list" in forcast) iconCode = forcast.list[0].weather[0].icon; 
     else iconCode = forcast.weather[0].icon;
