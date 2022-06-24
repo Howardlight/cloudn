@@ -6,7 +6,7 @@ import useSWR, { SWRResponse } from 'swr'
 import React, { useEffect, useState } from 'react'
 import { WeatherResponse, DayForcast } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
-import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius } from '../utils'
+import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius, getForcastIcon } from '../utils'
 import { Fragment } from 'react'
 import clouds from "../assets/ForcastSVGs/climate-cloud-forecast-2.svg";
 import bg from "../assets/bg.jpg";
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
             <Background>
                 <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
                     <Box>
-                        <Image src={clouds} width={250} height={250} />
+                        <Image src={getForcastIcon(data.list[0])} width={250} height={250} />
                         <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
                             <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
                                 <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
@@ -106,7 +106,7 @@ const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined
     
     
     return(
-        <Box sx={{display: "flex", gap: "5px"}}>
+        <Box sx={{display: "flex", gap: "7px"}} className="opacity-50">
             {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
                         //TODO: Create a nice Component to display info
                         return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
@@ -119,12 +119,13 @@ const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined
 const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
 
     return(
-        <Card>
-            <CardMedia>
-                <Image src={clouds}  />
+        <Card className="bg-transparent rounded-md border-2 border-solid" sx={{color: "white"}}>
+            <CardMedia sx={{display: "inline-flex", flexDirection: "row", alignItems: "center", m: "10px", gap: "10px"}}>
+                <Image src={getForcastIcon(dayForcast)} width={50} height={50}  />
+                <Typography variant="h5" className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
             </CardMedia>
             <CardContent sx={{minHeight: "100px", minWidth: "150px", p: "5%"}}>
-                <Typography variant="h5" className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
+                <Typography variant="subtitle1">{fetchDate(dayForcast)}</Typography>
                 <Typography sx={{display: "flex", wrap: "no-wrap"}} variant="subtitle1">{convertToCelsius(dayForcast.average.main.feels_like)} | {convertToCelsius(dayForcast.average.main.temp_max)} °</Typography>
             </CardContent>
 
