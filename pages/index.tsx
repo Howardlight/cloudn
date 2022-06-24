@@ -8,8 +8,7 @@ import { WeatherResponse, DayForcast } from '../types'
 import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
 import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius, getForcastIcon } from '../utils'
 import { Fragment } from 'react'
-import clouds from "../assets/ForcastSVGs/climate-cloud-forecast-2.svg";
-import bg from "../assets/bg.jpg";
+import Header from '../components/Header'
 
 const Home: NextPage = () => {
 
@@ -97,7 +96,7 @@ const Home: NextPage = () => {
                         })}
                     </Box> */}
                 </Box>
-            </Background>
+            {/* </Background> */}
         </Fragment>
     );
 }
@@ -132,11 +131,6 @@ const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
 
         </Card>
     );
-}
-
-//TODO: Find a type for this, check Cheatsheet
-const Background = (props: any) => {
-    return <div className="bg-fixed" style={{backgroundImage: `url("${bg.src}")`}} >{props.children}</div>
 }
 
 /**
