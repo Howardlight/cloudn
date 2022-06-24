@@ -1,14 +1,11 @@
-import type { GetStaticProps, NextPage } from 'next'
-import Head from 'next/head'
+import type {NextPage} from 'next'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import useSWR, { SWRResponse } from 'swr'
-import React, { useEffect, useState } from 'react'
-import { WeatherResponse, DayForcast } from '../types'
-import { Container, LinearProgress, Typography, Box, CircularProgress, Card, CardMedia, CardContent } from '@mui/material'
-import { fetcher, filterWeatherListByDay, filterFirstForcast, convertToCelsius, getForcastIcon } from '../utils'
-import { Fragment } from 'react'
-import Header from '../components/Header'
+import useSWR, {SWRResponse} from 'swr'
+import React, {Fragment, useEffect, useState} from 'react'
+import {DayForcast, WeatherResponse} from '../types'
+import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
+import {fetcher, filterWeatherListByDay, getForcastIcon} from '../utils'
+import {WeatherWidget} from "../components/weatherWidget";
 
 const Home: NextPage = () => {
 
@@ -106,30 +103,12 @@ const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined
 }
 
 
-const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
-
-    return(
-        <Card className="bg-transparent rounded-md border-2 border-solid w-48 min-h-fit" sx={{color: "white"}}>
-            <CardMedia sx={{display: "inline-flex", flexDirection: "row", alignItems: "center", m: "10px", gap: "10px"}}>
-                <Image src={getForcastIcon(dayForcast)} width={50} height={50}  />
-                <Typography variant="h5" className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
-            </CardMedia>
-            <CardContent sx={{ p: "5%" }}>
-                <Typography variant="subtitle1">{fetchDate(dayForcast)}</Typography>
-                <Typography variant="subtitle1">Min | Max: {convertToCelsius(dayForcast.average.main.temp_min)} | {convertToCelsius(dayForcast.average.main.temp_max)} °</Typography>
-                <Typography variant="subtitle1">Feels Like: {Math.round(convertToCelsius(dayForcast.average.main.feels_like))}°</Typography>
-                <Typography variant="subtitle1">Precipitation: {Math.round(dayForcast.average.pop * 100)}%</Typography>
-            </CardContent>
-        </Card>
-    );
-}
-
 /**
  * Returns A date in format `Day | Month | Year`
  * @param dayForcast 
  * @returns `string` 
  */
-const fetchDate = (dayForcast: DayForcast): string => {
+export const fetchDate = (dayForcast: DayForcast): string => {
     const date = new Date(dayForcast.list[0].dt_txt);
     return `${date.getDate()} | ${date.getMonth() + 1} | ${date.getFullYear()}`;
 }
