@@ -71,7 +71,8 @@ const Home: NextPage = () => {
     //TODO: Add Image Loader, Add Lazy Loading
     return (
         <Fragment>
-            <Background>
+            {/* <Background> */}
+                {/* <Header /> */}
                 <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
                     <Box>
                         <Image src={getForcastIcon(data.list[0])} width={250} height={250} />
