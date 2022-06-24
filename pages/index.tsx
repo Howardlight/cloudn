@@ -137,4 +137,13 @@ const Background = (props: any) => {
     return <div className="bg-fixed" style={{backgroundImage: `url("${bg.src}")`}} >{props.children}</div>
 }
 
+/**
+ * Returns A date in format `Day | Month | Year`
+ * @param dayForcast 
+ * @returns `string` 
+ */
+const fetchDate = (dayForcast: DayForcast): string => {
+    const date = new Date(dayForcast.list[0].dt_txt);
+    return `${date.getDate()} | ${date.getMonth() + 1} | ${date.getFullYear()}`;
+}
 export default Home
