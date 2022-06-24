@@ -10,7 +10,7 @@ import cloudyRainDay from "./assets/ForcastSVGs/climate-forecast-rain.svg";
 import cloudyRainNight from "./assets/ForcastSVGs/climate-forecast-night.svg";
 import snow from "./assets/ForcastSVGs/forecast-snowflake-flakes.svg";
 import mist from "./assets/ForcastSVGs/blowing-climate-forecast.svg";
-
+import placeHolder from "./assets/ForcastSVGs/day-forecast-hot.svg";
 
 export const fetcher = (url: string) => fetch(url).then(r => r.json());
 function kelvinToCelsius(kelvin: number) {
@@ -240,17 +240,21 @@ export function filterFirstForcast(dayForcast: DayForcast[], weatherData: Weathe
     return dayForcast;
 }
 
-export function getForcastIcon(forcast: DayForcast | WeatherList) {
+
+/**
+ * Takes Forcast|WeatherList and returns url of Associated Icon 
+ * 
+ * @param forcast
+ * @returns `string url`
+ */
+export function getForcastIcon(forcast: DayForcast | WeatherList): string {
     let iconCode: string;
     if("list" in forcast) iconCode = forcast.list[0].weather[0].icon; 
     else iconCode = forcast.weather[0].icon;
 
-
-
     const iconPath = weatherIconMap.find((code) => code.code == iconCode);
-    console.log(iconPath);
 
-    if(!iconPath) return undefined;
+    if(!iconPath) return placeHolder.src;
     return `${iconPath.svg}`;
 }
 
