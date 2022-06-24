@@ -104,8 +104,13 @@ export interface Wind {
 }
 
 export interface DayForcast {
+    /** Day of the forcast. */
     day: number;
+
+    /** Contains all the forcast associated with the day. */
     list: WeatherList[];
+    
+    /** The average of all forcasts in list. */
     average: DayForcastAv;
 }
 
