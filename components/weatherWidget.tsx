@@ -1,9 +1,8 @@
 import {DayForcast} from "../types";
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import Image from "next/image";
-import {convertToCelsius, getForcastIcon} from "../utils";
+import {convertToCelsius, fetchDate, getForcastIcon} from "../utils";
 import React from "react";
-import {fetchDate} from "../pages";
 
 export const WeatherWidget = ({dayForcast}: { dayForcast: DayForcast }) => {
 

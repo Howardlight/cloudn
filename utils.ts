@@ -1,4 +1,4 @@
-import { WeatherList, WeatherResponse, DayForcast, DayForcastAv, Weather, Wind, Clouds } from './types';
+import {Clouds, DayForcast, DayForcastAv, Weather, WeatherList, WeatherResponse, Wind} from './types';
 
 import moonNight from "./assets/ForcastSVGs/forecast-moon-night.svg";
 import sunnyCloud from "./assets/ForcastSVGs/sunny-cloud-forecast.svg";
@@ -373,3 +373,12 @@ export const weatherIconMap = [
         svg: `${mist.src}`
     },
 ]
+/**
+ * Returns A date in format `Day | Month | Year`
+ * @param dayForcast
+ * @returns `string`
+ */
+export const fetchDate = (dayForcast: DayForcast): string => {
+    const date = new Date(dayForcast.list[0].dt_txt);
+    return `${date.getDate()} | ${date.getMonth() + 1} | ${date.getFullYear()}`;
+}
