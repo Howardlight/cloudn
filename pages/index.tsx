@@ -70,8 +70,6 @@ const Home: NextPage = () => {
     //TODO: Add Image Loader, Add Lazy Loading
     return (
         <Fragment>
-            {/* <Background> */}
-                {/* <Header /> */}
                 <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
                     <Box>
                         <Image src={getForcastIcon(data.list[0])} width={250} height={250} />
@@ -89,14 +87,7 @@ const Home: NextPage = () => {
 
                     {/* //TODO: Add transition */}
                     <WeatherWidgetGroup weatherList={weatherList} />
-                    {/* <Box>
-                        {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                            //TODO: Create a nice Component to display info
-                            return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
-                        })}
-                    </Box> */}
                 </Box>
-            {/* </Background> */}
         </Fragment>
     );
 }
@@ -106,9 +97,8 @@ const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined
     
     
     return(
-        <Box sx={{display: "flex", gap: "7px"}} className="opacity-50">
+        <Box sx={{display: "flex", gap: "7px"}}>
             {weatherList == undefined ? <CircularProgress /> : weatherList.map((item, index) => {
-                        //TODO: Create a nice Component to display info
                         return <Fragment key={index}><WeatherWidget dayForcast={item} /></Fragment>
             })}
         </Box>
@@ -119,16 +109,17 @@ const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined
 const WeatherWidget = ({dayForcast}: {dayForcast: DayForcast}) => {
 
     return(
-        <Card className="bg-transparent rounded-md border-2 border-solid" sx={{color: "white"}}>
+        <Card className="bg-transparent rounded-md border-2 border-solid w-48 min-h-fit" sx={{color: "white"}}>
             <CardMedia sx={{display: "inline-flex", flexDirection: "row", alignItems: "center", m: "10px", gap: "10px"}}>
                 <Image src={getForcastIcon(dayForcast)} width={50} height={50}  />
                 <Typography variant="h5" className="font-bold">{convertToCelsius(dayForcast.average.main.temp)}°</Typography>
             </CardMedia>
-            <CardContent sx={{minHeight: "100px", minWidth: "150px", p: "5%"}}>
+            <CardContent sx={{ p: "5%" }}>
                 <Typography variant="subtitle1">{fetchDate(dayForcast)}</Typography>
-                <Typography sx={{display: "flex", wrap: "no-wrap"}} variant="subtitle1">{convertToCelsius(dayForcast.average.main.feels_like)} | {convertToCelsius(dayForcast.average.main.temp_max)} °</Typography>
+                <Typography variant="subtitle1">Min | Max: {convertToCelsius(dayForcast.average.main.temp_min)} | {convertToCelsius(dayForcast.average.main.temp_max)} °</Typography>
+                <Typography variant="subtitle1">Feels Like: {Math.round(convertToCelsius(dayForcast.average.main.feels_like))}°</Typography>
+                <Typography variant="subtitle1">Precipitation: {Math.round(dayForcast.average.pop * 100)}%</Typography>
             </CardContent>
-
         </Card>
     );
 }
