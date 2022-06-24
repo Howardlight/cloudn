@@ -6,13 +6,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
+//TODO: Come back to this and Improve CSS
 const Header = () => {
-
-    //TODO: Come back to this and Improve CSS
-    return (
-        <AppBar position="static" sx={{overflow: 'hidden', background: "rgba(10, 25, 41, 0.7)", backdropFilter: "blur(20px)"}}>
-            <Container maxWidth="xl" className='backdrop-blur-sm'>
-                <Toolbar disableGutters>
+    return(
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static" className="bg-transparent backdrop-blur-sm">
+                <Toolbar>
                     <Typography
                         variant="h6"
                         noWrap
@@ -20,28 +19,24 @@ const Header = () => {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: { xs: 'flex', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            flexGrow: "1",
+                            flexGrow: 1,
                         }}
                     >
                         CLOUDN
                     </Typography>
-                    <Box sx={{ flexGrow: 0 }}>
-                        {/* <Tooltip title="Redirects to About Section"> */}
-                            <Button className="font-semibold contrast-125 hover:contrast-150 hover:bg-transparent" sx={{color: "rgba(178, 186, 194)", backgroundColor: "rgba(10, 25, 41)"}}>
-                                ABOUT
-                            </Button>
-                        {/* </Tooltip> */}
-                    </Box>
+                    <Button className="font-semibold contrast-125 hover:contrast-150 hover:bg-transparent" sx={{color: "rgba(178, 186, 194)", backgroundColor: "rgba(10, 25, 41)"}}>
+                        ABOUT
+                    </Button>
                 </Toolbar>
-            </Container>
-        </AppBar>
-    );
-};
+            </AppBar>
+        </Box>
+    )
+}
 
 export default Header;
