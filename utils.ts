@@ -11,6 +11,7 @@ import cloudyRainNight from "./assets/ForcastSVGs/climate-forecast-night.svg";
 import snow from "./assets/ForcastSVGs/forecast-snowflake-flakes.svg";
 import mist from "./assets/ForcastSVGs/blowing-climate-forecast.svg";
 import placeHolder from "./assets/ForcastSVGs/day-forecast-hot.svg";
+import useSWR, {SWRResponse} from "swr";
 
 export const fetcher = (url: string) => fetch(url).then(r => r.json());
 function kelvinToCelsius(kelvin: number) {
@@ -381,4 +382,22 @@ export const weatherIconMap = [
 export const fetchDate = (dayForcast: DayForcast): string => {
     const date = new Date(dayForcast.list[0].dt_txt);
     return `${date.getDate()} | ${date.getMonth() + 1} | ${date.getFullYear()}`;
+}
+
+export function useWeatherData(longitude: number, latitude: number) {
+
+    const {
+        data,
+        error
+    }: SWRResponse<WeatherResponse, any> = useSWR(longitude != 0 && latitude != 0 ? `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OWA_API}` : null, fetcher, {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
+
+    return {
+        data: data,
+        isLoading: !error && !data,
+        isError: error
+    }
 }

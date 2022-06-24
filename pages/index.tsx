@@ -1,10 +1,9 @@
 import type {NextPage} from 'next'
 import Image from 'next/image'
-import useSWR, {SWRResponse} from 'swr'
 import React, {Fragment, useEffect, useState} from 'react'
-import {DayForcast, WeatherResponse} from '../types'
+import {DayForcast} from '../types'
 import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
-import {fetcher, filterWeatherListByDay, getForcastIcon} from '../utils'
+import {filterWeatherListByDay, getForcastIcon, useWeatherData} from '../utils'
 import {WeatherWidget} from "../components/weatherWidget";
 
 const Home: NextPage = () => {
@@ -82,21 +81,6 @@ const Home: NextPage = () => {
                 </Box>
         </Fragment>
     );
-}
-
-function useWeatherData (longitude: number, latitude: number) {
-
-    const {data, error}: SWRResponse<WeatherResponse, any> = useSWR(longitude !=0 && latitude !=0 ? `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OWA_API}` : null, fetcher, {
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false
-    });
-
-    return {
-        data: data,
-        isLoading: !error && !data,
-        isError: error
-    }
 }
 
 const WeatherWidgetGroup = ({weatherList}: {weatherList: DayForcast[]| undefined}) => {
