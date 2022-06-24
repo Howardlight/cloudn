@@ -1,5 +1,17 @@
 import { WeatherList, WeatherResponse, DayForcast, DayForcastAv, Weather, Wind, Clouds } from './types';
 
+import moonNight from "./assets/ForcastSVGs/forecast-moon-night.svg";
+import sunnyCloud from "./assets/ForcastSVGs/sunny-cloud-forecast.svg";
+import sunSunrise from "./assets/ForcastSVGs/forecast-sun-sunrise.svg";
+import thunder from "./assets/ForcastSVGs/energy-forecast-lightning.svg";
+import cloudy from "./assets/ForcastSVGs/cloud-cloudy-forecast.svg";
+import cloudyThunder from "./assets/ForcastSVGs/cloud-forecast-lightning.svg";
+import cloudyRainDay from "./assets/ForcastSVGs/climate-forecast-rain.svg";
+import cloudyRainNight from "./assets/ForcastSVGs/climate-forecast-night.svg";
+import snow from "./assets/ForcastSVGs/forecast-snowflake-flakes.svg";
+import mist from "./assets/ForcastSVGs/blowing-climate-forecast.svg";
+
+
 export const fetcher = (url: string) => fetch(url).then(r => r.json());
 function kelvinToCelsius(kelvin: number) {
     return kelvin - 273.15;
@@ -228,96 +240,128 @@ export function filterFirstForcast(dayForcast: DayForcast[], weatherData: Weathe
     return dayForcast;
 }
 
+export function getForcastIcon(forcast: DayForcast | WeatherList) {
+    let iconCode: string;
+    if("list" in forcast) iconCode = forcast.list[0].weather[0].icon; 
+    else iconCode = forcast.weather[0].icon;
+
+
+
+    const iconPath = weatherIconMap.find((code) => code.code == iconCode);
+    console.log(iconPath);
+
+    if(!iconPath) return undefined;
+    return `${iconPath.svg}`;
+}
+
 export const weatherIconMap = [
     
     // Few Clouds
     {
         code: "02d",
-        svg: "sunny-cloud-forcast.svg"
+        fileName: "sunny-cloud-forecast.svg",
+        svg: `${sunnyCloud.src}`
     },
     {
         code: "02n",
-        svg: "sunny-cloud-forcast.svg"
+        fileName: "sunny-cloud-forecast.svg",
+        svg: `${sunnyCloud.src}`
     },
 
     // Clear
     {
         code: "01d",
-        svg: "forcast-sun-sunrise.svg"
+        fileName: "forecast-sun-sunrise.svg",
+        svg:`${sunSunrise.src}`
     },
     {
         code: "01n",
-        svg: "forcast-moon-night.svg"
+        fileName: "forecast-moon-night.svg",
+        svg: `${moonNight.src}`
     },
 
     // Lighting
     {
         code: "11d",
-        svg: "energy-forecast-lightning.svg"
+        fileName: "energy-forecast-lightning.svg",
+        svg: `${thunder.src}`
     },
     {
         code: "11n",
-        svg: "energy-forecast-lightning.svg"
+        fileName: "energy-forecast-lightning.svg",
+        svg:`${thunder.src}`
     },
 
     // Cloudy
     {
         code: "03d",
-        svg: "cloud-cloudy-forcast.svg"
+        fileName: "cloud-cloudy-forecast.svg",
+        svg: `${cloudy.src}`
     },
     {
         code: "03n",
-        svg: "cloud-cloudy-forcast.svg"
+        fileName: "cloud-cloudy-forecast.svg",
+        svg: `${cloudy.src}`
     },
 
     // Cloud Lightning
     {
         code: "11d",
-        svg: "cloud-forcast-lightning.svg"
+        fileName: "cloud-forecast-lightning.svg",
+        svg: `${cloudyThunder.src}`
     },
     {
         code: "11n",
-        svg: "cloud-forcast-lightning.svg"
+        fileName: "cloud-forecast-lightning.svg",
+        svg: `${cloudyThunder.src}`
     },
     
 
     // Cloudy Rain
     {
         code: "09d",
-        svg: "climate-forcast-rain.svg"
+        fileName: "climate-forecast-rain.svg",
+        svg: `${cloudyRainDay.src}`
     },
     {
         code: "09n",
-        svg: "climate-forcast-night.svg"
+        fileName: "climate-forecast-night.svg",
+        svg: `${cloudyRainNight.src}`
     },
 
     {
         code: "10d",
-        svg: "climate-forcast-rain.svg"
+        fileName: "climate-forecast-rain.svg",
+        svg: `${cloudyRainDay.src}`
     },
     {
         code: "10n",
-        svg: "climate-forcast-night.svg"
+        fileName: "climate-forecast-night.svg",
+        svg: `${cloudyRainNight.src}`
     },
 
     // Snow
     {
         code: "13d",
-        svg: "forecast-snowflakes.svg"
+        fileName: "forecast-snowflake-flakes.svg",
+        svg: `${snow.src}`
     },
     {
         code: "13n",
-        svg: "forecast-snowflakes.svg"
+        fileName: "forecast-snowflake-flakes.svg",
+        svg: `${snow.src}`
     },
 
 
     // Mist
     {
         code: "50d",
-        svg: "blowing-climate-forcast.svg"
+        fileName: "blowing-climate-forecast.svg",
+        svg: `${mist.src}`
     },
     {
         code: "50n",
-        svg: "blowing-climate-forcast.svg"
+        fileName: "blowing-climate-forecast.svg",
+        svg: `${mist.src}`
     },
 ]
