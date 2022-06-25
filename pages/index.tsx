@@ -5,6 +5,7 @@ import {DayForcast} from '../types'
 import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
 import {filterWeatherListByDay, getForcastIcon, useWeatherData} from '../utils'
 import {ErrorBoundary} from "react-error-boundary";
+import Head from "next/head";
 
 const Home: NextPage = () => {
 
@@ -63,6 +64,9 @@ const Home: NextPage = () => {
     //TODO: Add Image Loader, Add Lazy Loading
     return (
         <Fragment>
+            <Head>
+                <title>Cloudn</title>
+            </Head>
                 <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
                     <Box>
                         <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} width={250} height={250} />
