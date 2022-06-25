@@ -3,6 +3,12 @@
   "short_name": "Cloudn",
   "icons": [
     {
+      "src": "icons/cloud.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
     },
