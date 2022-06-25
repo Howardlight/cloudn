@@ -34,3 +34,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .idea/
+/public/fallback-development.js
+/public/sw.js
