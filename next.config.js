@@ -5,9 +5,9 @@ const nextConfig = {
   reactStrictMode: true,
   pwa: {
     dest: "public",
-    // disable: false, //allows testing in local, REMOVE THIS IN PROD
+    disable: process.env.NODE_ENV === 'development', //allows testing in local, REMOVE THIS IN PROD
     swSrc: "service-worker.js"
   }
 }
 
-module.exports = nextConfig
+module.exports = withPWA(nextConfig);

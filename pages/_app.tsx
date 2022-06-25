@@ -7,29 +7,8 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  // useEffect(() => {
-  //
-  //   // Service Worker
-  //   if("serviceWorker" in navigator) {
-  //     window.addEventListener("load", function() {
-  //       navigator.serviceWorker.register("/sw.js").then(
-  //           function(registration) {
-  //             console.log("Service Worker registration success");
-  //           },
-  //           function (err) {
-  //             console.log("Service Worker registration failed:", err);
-  //           }
-  //       )
-  //     })
-  //   }
-  //
-  // }, []);
-
-
-
   return <Fragment>
     <Head>
-      <link rel="manifest" href="/manifest.json" />
       <meta name='application-name' content='PWA App' />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
@@ -49,10 +28,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
       <link rel='icon' type='image/png' sizes='16x16' href='/icons/favicon-16x16.png' />
-      <link rel='manifest' href='/manifest.json' />
       <link rel='mask-icon' href='/icons/safari-pinned-tab.svg' color='#5bbad5' />
       <link rel='shortcut icon' href='/favicon.ico' />
-      <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
 
       <meta name='twitter:card' content='summary' />
       <meta name='twitter:url' content='https://yourdomain.com' />
