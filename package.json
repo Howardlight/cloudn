@@ -25,10 +25,14 @@
     "webpack": ">=5.9.0 <6.0.0"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.1.19",
+    "@types/babel__preset-env": "^7.9.2",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
+    "@types/webpack": "^5.28.0",
     "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
     "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
