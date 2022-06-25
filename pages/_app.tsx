@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return <Fragment>
     <Head>
+      <link rel="manifest" href="/manifest.json" />
       <meta name='application-name' content='PWA App' />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
