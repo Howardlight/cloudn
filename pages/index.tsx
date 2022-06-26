@@ -35,9 +35,6 @@ const Home: NextPage = () => {
 
             } else console.error("Geolocation NOT available");
         }
-
-
-
         getGeoLocation().catch(console.error);
     }, []);
 
@@ -72,7 +69,7 @@ const Home: NextPage = () => {
                         <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} width={250} height={250} />
                         <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
                             <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                                <Typography className="text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                                <Typography className="text-9xl">{data ? Math.round(data!.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
                                 <Typography className="text-3xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
                             </Box>
                             <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>

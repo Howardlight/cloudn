@@ -384,12 +384,31 @@ export const fetchDate = (dayForcast: DayForcast): string => {
     return `${date.getDate()} | ${date.getMonth() + 1} | ${date.getFullYear()}`;
 }
 
+export function useWeatherDataNew(longitude: number, latitude: number) {
+
+    const {
+        data,
+        error
+    }: SWRResponse<any, any> = useSWR(`/api/${latitude}/${longitude}`, fetcher, {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
+
+    return {
+        data: data,
+        isLoading: !error && !data,
+        isError: error
+    }
+}
+
+
 export function useWeatherData(longitude: number, latitude: number) {
 
     const {
         data,
         error
-    }: SWRResponse<WeatherResponse, any> = useSWR(longitude != 0 && latitude != 0 ? `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_OWA_API}` : null, fetcher, {
+    }: SWRResponse<WeatherResponse, any> = useSWR(`/api/${latitude}/${longitude}`, fetcher, {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false
