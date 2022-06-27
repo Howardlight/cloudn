@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# workspace
+cloudn.code-workspace
+
 # testing
 /coverage
 
@@ -34,6 +37,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .idea/
+
 # PWA files
 **/public/precache.*.*.js
 **/public/sw.js
