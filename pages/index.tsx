@@ -63,28 +63,32 @@ const Home: NextPage = () => {
         <Fragment>
             <Head>
                 <title>Cloudn</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
-                <Box className="backdrop-blur-sm" sx={{ minWidth: "100vw", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "125px", color: "white"}}>
-                    <Box>
-                        <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} width={250} height={250} />
+            <Box className="backdrop-blur-sm">
+                <Box className="scale-75 gap-y-10" sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "white"}}>
+                    
+                    <Box className="flex flex-col gap-3">
+                        <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} layout="responsive" width={250} height={250} />
                         <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
                             <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                                <Typography className="text-9xl">{data ? Math.round(data!.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                                <Typography className="text-3xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
+                                <Typography className="text-6xl">{data ? Math.round(data!.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                                <Typography className="text-xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
                             </Box>
                             <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-                                <Typography className="text-6xl">{data!.list[0].weather[0].main}</Typography>
+                                <Typography className="text-2xl">{data!.list[0].weather[0].main}</Typography>
                                 <Typography sx={{ alignSelf: "center" }}>{data!.city.name}</Typography>
                             </Box>
                         </Box>
                     </Box>
 
-                    <ErrorBoundary fallback={<Typography>Could not load remaining Forecasts.</Typography>}>
-                            <Suspense fallback={<CircularProgress />}>
-                                {weatherList != undefined ? <WeatherWidgetGroup weatherList={weatherList} /> : <CircularProgress />}
-                            </Suspense>
+                    <ErrorBoundary fallback={<Typography className="flex justify-center align-center">Could not load remaining Forecasts.</Typography>}>
+                        <Suspense fallback={<CircularProgress className="flex justify-center align-center" />}>
+                            {weatherList != undefined ? <WeatherWidgetGroup weatherList={weatherList} /> : <CircularProgress />}
+                        </Suspense>
                     </ErrorBoundary>
                 </Box>
+            </Box>
         </Fragment>
     );
 }

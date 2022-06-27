@@ -30,7 +30,7 @@ const WeatherWidgetGroup = ({weatherList}: { weatherList: DayForcast[] | undefin
 
     return (
         <Fade unmountOnExit in>
-            <Box sx={{display: "flex", gap: "7px"}}>
+            <Box className="scale-90 grid grid-cols-2 justify-items-center align-items-center gap-x-10 gap-y-5">
                 {weatherList!.map((item, index) => {
                     return (
                         <Fragment key={index}>
