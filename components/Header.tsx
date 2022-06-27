@@ -10,27 +10,27 @@ import Button from '@mui/material/Button';
 const Header = () => {
     return(
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" className="bg-transparent backdrop-blur-sm">
+            <AppBar position="static" className="bg-transparent backdrop-blur-sm shadow-transparent">
                 <Toolbar>
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
                         href="/"
+                        className="color-white opacity-75"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
                             textDecoration: 'none',
                             flexGrow: 1,
                         }}
                     >
                         CLOUDN
                     </Typography>
-                    <Button className="font-semibold contrast-125 hover:contrast-150 hover:bg-transparent" sx={{color: "rgba(178, 186, 194)", backgroundColor: "rgba(10, 25, 41)"}}>
+                    <Button className="font-semibold contrast-125 hover:contrast-150 hover:bg-slate-900 text-white bg-transparent opacity-75">
                         ABOUT
                     </Button>
                 </Toolbar>
