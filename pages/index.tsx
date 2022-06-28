@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
 import Image from 'next/image'
 import React, {Fragment, useEffect, useState, Suspense} from 'react'
-import {DayForcast} from '../types'
+import {DayForcast, WeatherResponse} from '../types'
 import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
 import {filterWeatherListByDay, getForcastIcon, useWeatherData} from '../utils'
 import {ErrorBoundary} from "react-error-boundary";
@@ -68,19 +68,7 @@ const Home: NextPage = () => {
             <Box className="backdrop-blur-sm">
                 <Box className="scale-75 gap-y-10" sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "white"}}>
                     
-                    <Box className="flex flex-col gap-3">
-                        <Image src={getForcastIcon(data!.list[0])} alt={"Forecast Icon"} layout="responsive" width={250} height={250} />
-                        <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
-                            <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                                <Typography className="text-6xl">{data ? Math.round(data!.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                                <Typography className="text-xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
-                            </Box>
-                            <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-                                <Typography className="text-2xl">{data!.list[0].weather[0].main}</Typography>
-                                <Typography sx={{ alignSelf: "center" }}>{data!.city.name}</Typography>
-                            </Box>
-                        </Box>
-                    </Box>
+                    {data ? <CenterForcast data={data}/> : <LinearProgress />}
 
                     <ErrorBoundary fallback={<Typography className="flex justify-center align-center">Could not load remaining Forecasts.</Typography>}>
                         <Suspense fallback={<CircularProgress className="flex justify-center align-center" />}>
@@ -90,6 +78,24 @@ const Home: NextPage = () => {
                 </Box>
             </Box>
         </Fragment>
+    );
+}
+
+const CenterForcast = ({data}: {data: WeatherResponse}) => {
+    return (
+        <Box className="flex flex-col gap-3">
+            <Image src={getForcastIcon(data.list[0])} alt={"Forecast Icon"} layout="responsive" width={250} height={250} />
+            <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
+                <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
+                    <Typography className="text-6xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                    <Typography className="text-xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
+                </Box>
+                <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
+                    <Typography className="text-2xl">{data.list[0].weather[0].main}</Typography>
+                    <Typography sx={{ alignSelf: "center" }}>{data.city.name}</Typography>
+                </Box>
+            </Box>
+        </Box>
     );
 }
 
