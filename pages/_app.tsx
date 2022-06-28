@@ -4,6 +4,7 @@ import {Fragment, useEffect} from "react";
 import Header from '../components/Header';
 import Background from "../components/Background";
 import Head from "next/head";
+import { Box } from "@mui/material";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -53,10 +54,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel='apple-touch-startup-image' href='/images/apple_splash_750.png' sizes='750x1334' />
         <link rel='apple-touch-startup-image' href='/images/apple_splash_640.png' sizes='640x1136' />
       </Head>
-      {/* <Background> */}
-        <Header />
-        <Component {...pageProps} />
-      {/* </Background> */}
+      <Box className="backdrop-blur-sm" sx={{ width: "100%", height: "100%", position: "absolute" }}></Box>
+      <Header />
+      <Component {...pageProps} />
     </Fragment>
   );
 }
