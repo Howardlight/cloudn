@@ -7,7 +7,7 @@ import React, {Fragment} from "react";
 const WeatherWidget = ({dayForcast}: { dayForcast: DayForcast }) => {
 
     return (
-        <Card className="bg-transparent rounded-md border-2 border-solid w-48 min-h-fit" sx={{color: "white"}}>
+        <Card className="bg-transparent rounded-md border-2 border-solid border-slate-500 w-48 min-h-fit" sx={{color: "white"}}>
             <CardMedia
                 sx={{display: "inline-flex", flexDirection: "row", alignItems: "center", m: "10px", gap: "10px"}}>
                 <Image src={getForcastIcon(dayForcast)} alt={"Forecast Icon"} width={50} height={50}/>
@@ -30,7 +30,7 @@ const WeatherWidgetGroup = ({weatherList}: { weatherList: DayForcast[] | undefin
 
     return (
         <Fade unmountOnExit in>
-            <Box className="scale-90 grid grid-cols-2 justify-items-center align-items-center gap-x-10 gap-y-5">
+            <Box className="scale-90 md:scale-100 md:flex md:justify-center md:align-center md:gap-2 grid grid-cols-2 justify-items-center align-items-center gap-x-10 gap-y-5">
                 {weatherList!.map((item, index) => {
                     return (
                         <Fragment key={index}>

@@ -40,6 +40,7 @@ const Home: NextPage = () => {
 
     const {data, isLoading, isError} = useWeatherData(longitude, latitude);
 
+    // lazy load WeatherWidgetGroup
     const WeatherWidgetGroup = React.lazy(() => import("../components/weatherWidget"));
 
     useEffect(() => {
@@ -65,8 +66,7 @@ const Home: NextPage = () => {
                 <title>Cloudn</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
-            <Box className="backdrop-blur-sm">
-                <Box className="scale-75 gap-y-10" sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "white"}}>
+                <Box className="scale-75 gap-y-10 md:scale-100 md:gap-y-40 md:mt-16" sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "white"}}>
                     
                     {data ? <CenterForcast data={data}/> : <LinearProgress />}
 
@@ -76,7 +76,6 @@ const Home: NextPage = () => {
                         </Suspense>
                     </ErrorBoundary>
                 </Box>
-            </Box>
         </Fragment>
     );
 }
@@ -87,11 +86,11 @@ const CenterForcast = ({data}: {data: WeatherResponse}) => {
             <Image src={getForcastIcon(data.list[0])} alt={"Forecast Icon"} layout="responsive" width={250} height={250} />
             <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
                 <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                    <Typography className="text-6xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                    <Typography className="text-xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
+                    <Typography className="text-6xl md:text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
+                    <Typography className="text-xl md:text-3xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
                 </Box>
                 <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-                    <Typography className="text-2xl">{data.list[0].weather[0].main}</Typography>
+                    <Typography className="text-2xl md:text-6xl">{data.list[0].weather[0].main}</Typography>
                     <Typography sx={{ alignSelf: "center" }}>{data.city.name}</Typography>
                 </Box>
             </Box>
