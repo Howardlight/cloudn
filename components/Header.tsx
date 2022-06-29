@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 const Header = () => {
     return(
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar className="static bg-transparent backdrop-blur-sm shadow-transparent">
+            <AppBar className="static bg-transparent backdrop-blur-sm shadow-transparent shadow-none">
                 <Toolbar>
                     <Typography
                         variant="h6"
