@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name='apple-mobile-web-app-capable' content='yes' />
           <meta name='apple-mobile-web-app-status-bar-style' content='default' />
           <meta name='apple-mobile-web-app-title' content='Cloudn' />
-          <meta name='description' content='Check the forecast with Cloudn' />
+          <meta name='description' content='Check the Forecast now with Cloudn' />
           <meta name='format-detection' content='telephone=no' />
           <meta name='mobile-web-app-capable' content='yes' />
           <meta name='msapplication-config' content='/icons/browserconfig.xml' />
@@ -35,15 +35,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name='twitter:card' content='summary' />
           <meta name='twitter:url' content='https://cloudn.vercel.app' />
           <meta name='twitter:title' content='Cloudn' />
-          <meta name='twitter:description' content='Check the forecast with Cloudn' />
+          <meta name='twitter:description' content='Check the Forecast now with Cloudn' />
           <meta name='twitter:image' content='https://cloudn.vercel.app/icons/android-chrome-192x192.png' />
-          <meta name='twitter:creator' content='@DavidWShadow' />
+          <meta name='twitter:creator' content='@HowardLight' />
           <meta property='og:type' content='website' />
           <meta property='og:title' content='Cloudn' />
-          <meta property='og:description' content='Check the forecast with Cloudn' />
+          <meta property='og:description' content='Check the Forecast now with Cloudn' />
           <meta property='og:site_name' content='Cloudn' />
           <meta property='og:url' content='https://cloudn.vercel.app' />
-          <meta property='og:image' content='https://cloudn.vercel.app/icons/apple-touch-icon.png' />
+          <meta property='og:image' content='https://cloudn.vercel.app/icons/cloud.png' />
 
           <link rel='apple-touch-startup-image' href='/images/apple_splash_2048.png' sizes='2048x2732' />
           <link rel='apple-touch-startup-image' href='/images/apple_splash_1668.png' sizes='1668x2224' />
