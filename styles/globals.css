@@ -7,7 +7,7 @@ body {
   height: 100%;
 
   /* background img */
-  background-image: url("../assets/bg.jpg");
+  background-image: url("/bg.webp");
   background-position: center;
   background-size: auto;
 
