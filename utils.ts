@@ -1,16 +1,16 @@
 import {Clouds, DayForcast, DayForcastAv, Weather, WeatherList, WeatherResponse, Wind} from './types';
 
-import moonNight from "./assets/ForcastSVGs/forecast-moon-night.svg";
-import sunnyCloud from "./assets/ForcastSVGs/sunny-cloud-forecast.svg";
-import sunSunrise from "./assets/ForcastSVGs/forecast-sun-sunrise.svg";
-import thunder from "./assets/ForcastSVGs/energy-forecast-lightning.svg";
-import cloudy from "./assets/ForcastSVGs/cloud-cloudy-forecast.svg";
-import cloudyThunder from "./assets/ForcastSVGs/cloud-forecast-lightning.svg";
-import cloudyRainDay from "./assets/ForcastSVGs/climate-forecast-rain.svg";
-import cloudyRainNight from "./assets/ForcastSVGs/climate-forecast-night.svg";
-import snow from "./assets/ForcastSVGs/forecast-snowflake-flakes.svg";
-import mist from "./assets/ForcastSVGs/blowing-climate-forecast.svg";
-import placeHolder from "./assets/ForcastSVGs/day-forecast-hot.svg";
+import moonNight from "./public/ForcastSVGs/forecast-moon-night.svg";
+import sunnyCloud from "./public/ForcastSVGs/sunny-cloud-forecast.svg";
+import sunSunrise from "./public/ForcastSVGs/forecast-sun-sunrise.svg";
+import thunder from "./public/ForcastSVGs/energy-forecast-lightning.svg";
+import cloudy from "./public/ForcastSVGs/cloud-cloudy-forecast.svg";
+import cloudyThunder from "./public/ForcastSVGs/cloud-forecast-lightning.svg";
+import cloudyRainDay from "./public/ForcastSVGs/climate-forecast-rain.svg";
+import cloudyRainNight from "./public/ForcastSVGs/climate-forecast-night.svg";
+import snow from "./public/ForcastSVGs/forecast-snowflake-flakes.svg";
+import mist from "./public/ForcastSVGs/blowing-climate-forecast.svg";
+import placeHolder from "./public/ForcastSVGs/day-forecast-hot.svg";
 import useSWR, {SWRResponse} from "swr";
 
 export const fetcher = (url: string) => fetch(url).then(r => r.json());
