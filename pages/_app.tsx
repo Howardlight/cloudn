@@ -56,9 +56,23 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Head>
         <Box className="backdrop-blur-sm" sx={{ width: "100%", height: "100%", position: "absolute" }}></Box>
         <Header />
-        <Component {...pageProps} />
+        <DeblurWrapper>
+          <Component {...pageProps} />
+        </DeblurWrapper>
     </Fragment>
   );
+}
+
+const BlurFilter = () => {
+  return <Box className="backdrop-blur-sm" sx={{ width: "100%", height: "100%", position: "absolute" }}/>;
+}
+
+const DeblurWrapper = (props: any) => {
+  return(
+    <Box className="backdrop-blur-none">
+      {props.children}
+    </Box>
+  )
 }
 
 export default MyApp
