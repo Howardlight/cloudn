@@ -1,12 +1,6 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import {AppBar, Box, Toolbar, Typography, Button} from "@mui/material";
 import Link from 'next/link';
 
-//TODO: Come back to this and Improve CSS
 const Header = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -32,11 +26,11 @@ const Header = () => {
                             CLOUDN
                         </Typography>
                     </Link>
-                    <Link href="/about">
+                    <a href="https://github.com/Howardlight/cloudn">
                         <Button className="opacity-75 font-semibold hover:opacity-100 text-white bg-transparent ">
                             ABOUT
                         </Button>
-                    </Link>
+                    </a>
                 </Toolbar>
             </AppBar>
         </Box>
