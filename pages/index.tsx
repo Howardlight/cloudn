@@ -1,11 +1,11 @@
 import type {NextPage} from 'next'
-import Image from 'next/image'
 import React, {Fragment, useEffect, useState, Suspense} from 'react'
-import {DayForcast, WeatherResponse} from '../types'
+import {DayForcast} from '../types'
 import {Box, CircularProgress, LinearProgress, Typography} from '@mui/material'
-import {filterWeatherListByDay, getForcastIcon, useWeatherData} from '../utils'
+import {filterWeatherListByDay, useWeatherData} from '../utils'
 import {ErrorBoundary} from "react-error-boundary";
 import Head from "next/head";
+import { CenterForcast } from '../components/CenterForcast'
 
 const Home: NextPage = () => {
 
@@ -13,15 +13,18 @@ const Home: NextPage = () => {
     const [latitude, setLatitude] = useState(0);
     const [weatherList, setWeatherList] = useState<DayForcast[] | undefined>(undefined);
 
+
+    //TODO: Add breakpoints for Tablets
+    //TODO: Improve Manifest Images for the PWA
     useEffect(() => {
         const getGeoLocation = async () => {
             if("geolocation" in navigator) {
 
-                console.info("Geolocation available");
+                // console.info("Geolocation available");
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
-                        console.log("Latitude is :", position.coords.longitude);
-                        console.log("longitude is:",position.coords.latitude);
+                        // console.log("Latitude is :", position.coords.longitude);
+                        // console.log("longitude is:",position.coords.latitude);
                         
                         setLongitude(position.coords.longitude);
                         setLatitude(position.coords.latitude);
@@ -47,7 +50,7 @@ const Home: NextPage = () => {
         // Filters weather Data by Day to be displayed under
         if(data) {
             const timeOut = setTimeout(() => {
-                console.log("TimeOut Called!");
+                // console.log("TimeOut Called!");
                 let list = filterWeatherListByDay(data);
 
                 setWeatherList(list);
@@ -59,7 +62,6 @@ const Home: NextPage = () => {
 
     if(isLoading) return <LinearProgress/>
     if(isError) return <div>{isError}</div>
-    //TODO: Add Image Loader, Add Lazy Loading
     return (
         <Fragment>
             <Head>
@@ -79,24 +81,5 @@ const Home: NextPage = () => {
         </Fragment>
     );
 }
-
-const CenterForcast = ({data}: {data: WeatherResponse}) => {
-    return (
-        <Box className="flex flex-col gap-3">
-            <Image src={getForcastIcon(data.list[0])} alt={"Forecast Icon"} layout="responsive" width={250} height={250} />
-            <Box sx={{ display: "flex", flexDirection: "column" }} className="text-white">
-                <Box sx={{ display: "inline-flex", flexDirection: "row", justifyContent: "center" }}>
-                    <Typography className="text-6xl md:text-9xl">{data ? Math.round(data.list[0].main.temp - 273.15) : <CircularProgress />}</Typography>
-                    <Typography className="text-xl md:text-3xl italic" sx={{ alignSelf: "flex-end", mb: "5%" }}>{data ? "°C" : null}</Typography>
-                </Box>
-                <Box sx={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-                    <Typography className="text-2xl md:text-6xl">{data.list[0].weather[0].main}</Typography>
-                    <Typography sx={{ alignSelf: "center" }}>{data.city.name}</Typography>
-                </Box>
-            </Box>
-        </Box>
-    );
-}
-
 
 export default Home;
