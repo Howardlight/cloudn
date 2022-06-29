@@ -1,8 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import {Fragment, useEffect} from "react";
+import {Fragment} from "react";
 import Header from '../components/Header';
-import Background from "../components/Background";
 import Head from "next/head";
 import { Box } from "@mui/material";
 
