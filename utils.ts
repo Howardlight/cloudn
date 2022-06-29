@@ -234,7 +234,7 @@ export const filterWeatherListByDay = (weatherList: WeatherResponse): Array<DayF
 export function filterFirstForcast(dayForcast: DayForcast[], weatherData: WeatherResponse) {
 
     if (dayForcast[0].list[0].dt_txt === weatherData.list[0].dt_txt) {
-        console.log(`Current Weather day detected in DayForcast[] of day ${dayForcast[0].day}`);
+        // console.log(`Current Weather day detected in DayForcast[] of day ${dayForcast[0].day}`);
         dayForcast.shift();
     }
 
