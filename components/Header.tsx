@@ -18,7 +18,7 @@ const Header = () => {
                             noWrap
                             component="a"
                             href="/"
-                            className="color-white opacity-75"
+                            className="color-white opacity-75 hover:opacity-100"
                             sx={{
                                 mr: 2,
                                 display: "flex",
@@ -33,7 +33,7 @@ const Header = () => {
                         </Typography>
                     </Link>
                     <Link href="/about">
-                        <Button className="font-semibold contrast-125 hover:contrast-150 hover:bg-slate-900 text-white bg-transparent opacity-75">
+                        <Button className="opacity-75 font-semibold hover:opacity-100 text-white bg-transparent ">
                             ABOUT
                         </Button>
                     </Link>
