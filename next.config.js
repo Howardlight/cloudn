@@ -8,8 +8,8 @@ const nextConfig = {
   reactStrictMode: true,
   pwa: {
     dest: "public",
-    // disable: true, //allows testing in local, REMOVE THIS IN PROD
-    disable: process.env.NODE_ENV === 'development', //allows testing in local, REMOVE THIS IN PROD
+    disable: true, //allows testing in local, REMOVE THIS IN PROD
+    // disable: process.env.NODE_ENV === 'development', //allows testing in local, REMOVE THIS IN PROD
   },
 
 }
