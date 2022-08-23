@@ -4,9 +4,9 @@ import { Fragment } from "react";
 import Header from '../components/Header';
 import Head from "next/head";
 import { Box } from "@mui/material";
-import { NextSeo } from "next-seo";
-import Cloudn from "../public/cloudn.png";
-import Cloudn_1600x630 from "../public/cloudn-1200x630.png";
+import { DefaultSeo } from "next-seo";
+import Cloudn from "../public/OpenGraph.png";
+import Cloudn_1600x630 from "../public/OpenGraph-1200x630.png";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Fragment>
       <Head>
         <link rel='manifest' href='/manifest.json' />
-        <NextSeo
+        <DefaultSeo
           title="Cloudn"
           description="Your quickest way to check the weather."
           canonical="https://www.cloudn.vercel.app/"
