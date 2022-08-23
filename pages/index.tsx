@@ -65,7 +65,6 @@ const Home: NextPage = () => {
     return (
         <Fragment>
             <Head>
-                <title>Cloudn</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
                 <Box className="scale-75 gap-y-10 md:scale-100 md:gap-y-40 md:mt-16" sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "white"}}>

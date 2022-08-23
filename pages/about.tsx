@@ -7,7 +7,6 @@ const About: NextPage = () => {
     return(
         <React.Fragment>
             <Head>
-                <title>About - Cloudn</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
             <Box className="flex justify-center items-center text-white z-2 backdrop-blur-0" sx={{height: '90vh', width: "auto"}}>
